@@ -1,0 +1,58 @@
+Sandesh Sadalge's Week 5 R Quiz
+========================================================
+
+<b>Question 1:</b> Make the Matrixes listed in the question:
+
+```{r}
+(A <- matrix(c(1,-1,-1,1), nrow =2))
+(B <- matrix(c(2,3,-1,-2),nrow=2))
+(C <- matrix(c(1,0,0,0),nrow=2))
+(D <- matrix(c(0,1,0,1,0,0,0,0,1), nrow=3))
+(E <- matrix(c(1,0,0,0,0,1,0,1,0),nrow = 3))
+```
+
+<b>Question 2:</b> Which one is idempotent?
+
+According to the interwebs, a Matrix, M, is Idempotent iff M x X = M
+So see which of the following results in a matric that is all TRUEs:
+```{r}
+(A == A %*% A)
+(B == B %*% B)
+(C == C %*% C)  # THIS ONE!
+(D == D %*% D)
+(E == E %*% E)
+```
+
+<b>Question3:</b> Which one is Orthogonal?
+
+Again, according to what I researched using Google, a Martrix, M, is orthogonal iff M x Transpose(M) = I (Identity Matrix)
+
+First, I made 2x2 & 3x3 Identity Matrixes:
+```{r}
+(TwoSqIdent <- matrix(c(1,0,0,1),nrow=2))
+(ThreeSqIdent <- matrix(c(1,0,0,0,1,0,0,0,1),nrow=3))
+```
+Now to check is they're orthogonal i.e. see if Matrix X Transpose(Martix) = Identity (Again, see if they're all TRUE)
+```{r}
+(TwoSqIdent == A %*% t(A))
+(TwoSqIdent == B %*% t(B))
+(TwoSqIdent == C %*% t(C))
+(ThreeSqIdent == D %*% t(D)) # THIS ONE!
+(ThreeSqIdent == E %*% t(E)) # AND THIS ONE!
+```
+
+<b>Question 4:</b> Create a list with a vector, a matrix, an array, a dataframe and another list
+
+First I made the various things asked for:
+```{r}
+vec <- c(1,2,3,4)
+mtrx <- matrix(vec,nrow = 2)
+arry <- array(1:24, c(2,2,3,2))
+dtfrm <- data.frame(Numbers = 1:4, English = c("One","Two","Three","Four"), Spanish = c("Uno","Dos","Tres","Quatro"))
+list2 <- list(1:3,1,mtrx)
+```
+
+Now here's the actual list asked for in the question:
+```{r}
+(theList <- list(vec,mtrx,arry,dtfrm,list2))
+```
