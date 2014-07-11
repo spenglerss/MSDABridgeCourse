@@ -12,13 +12,21 @@ summary(sampleHTMLData)
 
 # The rest is my own stuff:
 # I stumbled upon the NYC Open Data site at: https://data.cityofnewyork.us/
-# I looked through the documentation and for R, you can install a package to get to this data.
-# I've commented this out, as I don't need to install it again:
-# install.packages("RSocrata") 
+# I looked through the documentation and for R, you can install the RSocrata package to get to this data.
+install.packages("RSocrata") 
 require(RSocrata)
 # I decided on a simple table showing average SAT scores by highschool which you can find here:
 theURL <- "https://data.cityofnewyork.us/Education/SAT-Results/f9bf-2cp4"
 NYC_SAT_Results <- read.socrata(theURL)
 summary(NYC_SAT_Results)
-# Now the interesting thing is that the read.socrata() function returns everything as a character.
-# Is there a way to conver these into integers or decimals?
+# Now the interesting thing is that the read.socrata() function returns everything as a character string.
+# Goolgled and found that the strtoi() function can convert to integers!
+# Converting strings to integer:
+NYC_SAT_Results$Num.of.SAT.Test.Takers_Int <- strtoi(NYC_SAT_Results$Num.of.SAT.Test.Takers)
+NYC_SAT_Results$SAT.Critical.Reading.Avg..Score_Int <- strtoi(NYC_SAT_Results$SAT.Critical.Reading.Avg..Score)
+NYC_SAT_Results$SAT.Math.Avg..Score_Int <- strtoi(NYC_SAT_Results$SAT.Math.Avg..Score)
+NYC_SAT_Results$SAT.Writing.Avg..Score_Int <- strtoi(NYC_SAT_Results$SAT.Writing.Avg..Score)
+
+# Now the summary is a little more useful:
+summary(NYC_SAT_Results)
+str(NYC_SAT_Results)
