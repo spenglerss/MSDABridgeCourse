@@ -1,0 +1,108 @@
+---
+Week 8 R Assignment
+CUNY MS Data Analytics Summer Bridge Program
+---
+
+<p>1.Use the rbinom() function with probability 0.5 to simulate a string of 100 coin flips.
+```{r}
+(coin.flips <- rbinom(100,1,0.5))
+```
+<p>2.Write code that will test the sequence you just generated to determine whether there is a string of at least seven in a row of either heads or tails. (You can choose whether to consider 0 heads and 1 tails or vice versa.)
+
+My code is designed to end the loop as soon as it finds a 7 consecutive sequence of 0s or 1s in the data.  I'm defining Heads as 1s and Tails as 0s.  I tested the code extensively and I believe it works correctly. It sets 'SevenInARow' to 1 if it succeeds, otherwise it remains at 0.
+```{r}
+i <- 1
+SevenInARow <- 0
+sum.heads <- 0
+sum.tails <- 0
+while ((SevenInARow == FALSE) && i <= (length(coin.flips) - 6))
+{
+  sum.heads <- sum(coin.flips[i:(i+6)] == c(1,1,1,1,1,1,1))
+  sum.tails <- sum(coin.flips[i:(i+6)] == c(0,0,0,0,0,0,0))
+  if ((sum.heads == 7) || (sum.tails == 7))
+  {
+    SevenInARow <- 1
+  }
+  i <- i + 1
+}
+(SevenInARow)
+```
+<p>3.Enclose the code for steps 1 and 2 in a loop so that you can run it a bunch of times. Use this loop to determine the proportion of 100-toss sequences that actually have at least seven in a row of the same thing. This is your estimate of the probability.
+<p>4.Run the loop with 10 such sequences. Then run it with 100, and 1000. (If you're really brave, run it more times still...)
+
+Ok, so <b>'Seven.Tests.Num'</b> sets the number of tests to run and the vector <b>'Seven.Tests'</b> contains <b>0</b> or <b>1</b> depending on if the test for that set of 100 flips had seven consecutive heads or tails.  Then, we can simply look at the <b> Sum(Seven.Tests) / Length(Seven.Tests)</b> to estimate the probability.
+
+```{r}
+
+Seven.Tests.Num = 100
+Seven.Tests <- c(1:Seven.Tests.Num)*0
+
+for (j in 1:Seven.Tests.Num)
+{
+  coin.flips <- rbinom(100,1,0.5)
+  i <- 1
+  SevenInARow <- 0
+  sum.heads <- 0
+  sum.tails <- 0
+  while ((SevenInARow == FALSE) && i <= (length(coin.flips) - 6))
+  {
+    sum.heads <- sum(coin.flips[i:(i+6)] == c(1,1,1,1,1,1,1))
+    sum.tails <- sum(coin.flips[i:(i+6)] == c(0,0,0,0,0,0,0))
+    if ((sum.heads == 7) || (sum.tails == 7))
+    {
+      SevenInARow <- 1
+    }
+    i <- i + 1
+  }
+Seven.Tests[j] = SevenInARow
+}
+(Seven.Tests)
+(sum(Seven.Tests)/length(Seven.Tests))
+```
+
+<p>Comment both on how well your estimate seems to converge to a single answer and also how R performs at these loops. Do you notice a significant slowdown at 1000 sequences? What about 10,000? Where does your machine start really to grind to a halt?
+
+My maching took about 53 seconds to do 100,000 loops of 100 Flips. This is my work computer and it's relatively new so I think that's pretty fast.  
+
+I figure I'd put 20 trails of 100,000 tests to see if we're converging onto a number - basically, I just threw <i>another loop</i> around the above one and put the resutls into another vector :-)
+
+Then to make thins a little nicer to see, I put a simple data.frame together to show to results, number of tests and the probability.
+
+```{r}
+Numbr.Tests <- 20
+tests.numerators <- c(1:Numbr.Tests)*0
+
+for (k in 1:Numbr.Tests)
+{
+  Seven.Tests.Num <- 100 # In actuality, I did this with 100,000 but didn't want the 'Knit HTML' to take too long so limited this to 100 for the RMarkdown.  Results below are based on 100,000
+  Seven.Tests <- c(1:Seven.Tests.Num)*0
+  
+  for (j in 1:Seven.Tests.Num)
+  {
+    coin.flips <- rbinom(100,1,0.5)
+    i <- 1
+    SevenInARow <- 0
+    sum.heads <- 0
+    sum.tails <- 0
+    while ((SevenInARow == FALSE) && i <= (length(coin.flips) - 6))
+    {
+      sum.heads <- sum(coin.flips[i:(i+6)] == c(1,1,1,1,1,1,1))
+      sum.tails <- sum(coin.flips[i:(i+6)] == c(0,0,0,0,0,0,0))
+      if ((sum.heads == 7) || (sum.tails == 7))
+      {
+        SevenInARow <- 1
+      }
+      i <- i + 1
+    }
+    Seven.Tests[j] = SevenInARow
+  }
+  tests.numerators[k] <- sum(Seven.Tests)  
+}
+
+TheResults <- data.frame(tests.numerators,Seven.Tests.Num, tests.numerators/Seven.Tests.Num)
+```
+The results were:
+
+
+
+
