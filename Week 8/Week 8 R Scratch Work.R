@@ -17,12 +17,14 @@ while ((SevenInARow == FALSE) && i <= (length(coin.flips) - 6))
 }
 
 
-Numbr.Tests <- 20
+require(ggplot2)
+
+Numbr.Tests <- 400
 tests.numerators <- c(1:Numbr.Tests)*0
 
 for (k in 1:Numbr.Tests)
 {
-  Seven.Tests.Num <- 100000
+  Seven.Tests.Num <- 1000
   Seven.Tests <- c(1:Seven.Tests.Num)*0
   
   for (j in 1:Seven.Tests.Num)
@@ -48,4 +50,5 @@ for (k in 1:Numbr.Tests)
 }
 
 TheResults <- data.frame(tests.numerators,Seven.Tests.Num, tests.numerators/Seven.Tests.Num)
-(TheResults)
+head(TheResults)
+hist(TheResults$tests.numerators/Seven.Tests.Num)
