@@ -62,19 +62,22 @@ Seven.Tests[j] = SevenInARow
 
 <p>Comment both on how well your estimate seems to converge to a single answer and also how R performs at these loops. Do you notice a significant slowdown at 1000 sequences? What about 10,000? Where does your machine start really to grind to a halt?
 
-My maching took about 53 seconds to do 100,000 loops of 100 Flips. This is my work computer and it's relatively new so I think that's pretty fast.  
+My maching took about 53 seconds to do 100,000 loops of 100 Flips. This is my work computer and it's relatively new which is why this is pretty fast
 
-I figure I'd put 20 trails of 100,000 tests to see if we're converging onto a number - basically, I just threw <i>another loop</i> around the above one and put the resutls into another vector :-)
+I figure I'd put 400 trails of 1,000 tests to see if we're converging onto a number - basically, I just threw <i>another loop</i> around the above one and put the resutls into another vector :-)
 
-Then to make thins a little nicer to see, I put a simple data.frame together to show to results, number of tests and the probability.
+Then to make things a little nicer to see, I put a the results into a simple data.frame and plotted them with a histogrm.  Looks to me like we're in the 0.54 to 0.55 range as to the probability:
 
 ```{r}
-Numbr.Tests <- 20
+
+require(ggplot2)
+
+Numbr.Tests <- 400
 tests.numerators <- c(1:Numbr.Tests)*0
 
 for (k in 1:Numbr.Tests)
 {
-  Seven.Tests.Num <- 100 # In actuality, I did this with 100,000 but didn't want the 'Knit HTML' to take too long so limited this to 100 for the RMarkdown.  Results below are based on 100,000
+  Seven.Tests.Num <- 1000
   Seven.Tests <- c(1:Seven.Tests.Num)*0
   
   for (j in 1:Seven.Tests.Num)
@@ -100,9 +103,6 @@ for (k in 1:Numbr.Tests)
 }
 
 TheResults <- data.frame(tests.numerators,Seven.Tests.Num, tests.numerators/Seven.Tests.Num)
+head(TheResults)
+hist(TheResults$tests.numerators/Seven.Tests.Num)
 ```
-The results were:
-
-
-
-
