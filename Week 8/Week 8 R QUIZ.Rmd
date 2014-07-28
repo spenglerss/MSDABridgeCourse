@@ -1,0 +1,73 @@
+---
+Week 8 R Quiz
+CUNY MS Data Analytics Summer Bridge Program
+---
+
+<b>Question 1: Illustrate how to add element by element the contents of two numeric vectors of equal length using a for loop:</b>
+
+```{r}
+vect.1 <- c(1,4,7,9,12,15)
+vect.2 <- c(5,2,15,43,6,4)
+
+if (length(vect.1) == length(vect.2))
+{
+  vect.3 <- c(1:length(vect.1))
+  for (i in 1:length(vect.1))
+  {
+  vect.3[i] = vect.1[i] + vect.2[i]  
+  }
+} else
+{ 
+  print("Vectors are different lengths")
+}
+
+(vect.3)
+```
+<b>Q1A) Comment on how this differs from the easier vector addition method preferred in R.</b>
+     <p>The usual method would be to simply write: vect.3 <- vect.1 + vect.2.  This is very fast and works as long as the two vectors are multiple lenghts of one another.  I beleive this is because R is a 'vectorized language' and such vector calculation a much more efficent in R.  Personally, I'm glad this is the case because years ago, I used to have to write loops for similar calculations</p>
+     
+<p><b>Question 2: Write code that uses a while loop that determines how many "heads" in a row an arbitrary vector of coin flips has starting at the beginning.</b></p><p>An example of a vector input is c("heads","heads","tails","heads"). Your code should give an answer of 2 when run on this vector. Note that a vector that begins with "tails" should give an answer of 0.</p>
+```{r}
+vect.flips <- c("heads","heads","tails","heads")
+Nmbr.heads <- 0
+for (i in 1:length(vect.flips))
+{
+  if (vect.flips[i] == "heads") { Nmbr.heads <- Nmbr.heads + 1}
+}
+(Nmbr.heads)
+```
+
+<p><b>Question 3: Use a for loop running over all 100 integers from 1 to 100 and the ifelse() function to add only the odd numbers from 1 to 100.</b></p>
+```{r}
+
+Nmbrs <- c(1:100)
+running.total = 0
+
+for (i in 1:length(Nmbrs))
+{
+  ifelse(Nmbrs[i] %% 2 == 0, running.total <- running.total + Nmbrs[i],running.total)
+  # No need for ifelse() as the above line could be written more simply with just if:
+  # if(Nmbrs[i] %% 2 == 0) {running.total <- running.total + Nmbrs[i]}
+}
+
+(running.total)
+```
+<p>BONUS: Can you show how to accomplish the same thing without using a loop?</p>
+Yes - by using the properties of the modulus and vecotrization!
+
+Any number mod 2 give you just a 1 or 0.  1 if it's ODD and 2 if it's even as seen here:
+```{r}
+(Nmbrs.2 <- Nmbrs %% 2)
+```
+Now we can simply use this to 'zero out' all the even integers:
+```{r}
+(Nmbrs.2 <- (Nmbrs %% 2) * Nmbrs)
+```
+And lastly, simply take the sum of the new vector:
+```{r}
+(sum(Nmbrs.2))
+```
+or much more simply:
+```{r}
+(sum((Nmbrs %% 2) * Nmbrs))
+```

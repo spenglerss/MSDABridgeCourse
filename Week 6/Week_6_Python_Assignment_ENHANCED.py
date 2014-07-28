@@ -12,7 +12,7 @@ theString = '2 United States | W 4 | T 3 | L 1 | L 5 | W 3 | T 2'
 ''' The following regular expression assigns the following:
 matches.group(1) = Rank
 matches.group (2) = Country
-matches.group(3) is the string of all results.  basically everything from the first '|' onwards.
+matches.group(3) is the string of all results.  Basically everything from the first '|' to EOL.
 '''
 matches = re.search('(^[0-9]+) +([a-zA-Z ]+)\|(.*)',theString)
 
