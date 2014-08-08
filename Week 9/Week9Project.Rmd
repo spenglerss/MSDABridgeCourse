@@ -5,10 +5,86 @@ author: "Sandesh Sadalge"
 
 The Week 9 Group Assignment was to work together using R and Python to come up with come comclusions about 4 sets of data:
 
-It was evidences early on that the set of data given to us:
+It was evidenced early on that the sets of data given to us are what's called **Anscombe's Quartet**.
 
-![](C:/Users/ssadalge/Documents/GitHub/MSDABridgeCourse/Week 9/W9AsgnPic.jpg)
-
-```{r}
-
+```{r,echo=FALSE}
+# from github cuny9.csv file
+library(bitops)
+library(RCurl)
+options(RCurlOptions = list(cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl")))
 ```
+
+The data is contained here:
+
+```{r,echo=TRUE}
+fileurl= "https://raw.githubusercontent.com/DataProgrammingBridge2014/RCodeDevelopment/master/cuny9.csv"
+data <- getURL(fileurl)
+cuny9 <- read.csv(text = data)
+```
+
+And plotting them looks like this...
+
+```{r, echo=FALSE}
+# split data into data sets
+Idf <- data.frame(x = cuny9$x1, y = cuny9$y1)
+IIdf <- data.frame(x = cuny9$x2, y = cuny9$y2)
+IIIdf <- data.frame(x = cuny9$x3, y = cuny9$y3)
+IVdf <- data.frame(x = cuny9$x4, y = cuny9$y4)
+
+par(mfrow=c(2,2))
+plot(Idf, main="I")
+abline(lm(Idf$y ~ Idf$x))
+plot(IIdf, main="II")
+abline(lm(IIdf$y ~ IIdf$x))
+plot(IIIdf, main="III")
+abline(lm(IIIdf$y ~ IIIdf$x))
+plot(IVdf, main="IV")
+abline(lm(IVdf$y ~ IVdf$x))
+```
+
+What's important here is that the **summary calcualtions on these data sets are exactly the same!**
+
+``` {r echo=TRUE}
+summary(Idf)
+summary(IIdf)
+summary(IIIdf)
+summary(IVdf)
+```
+
+***In fact, the linear regression lines used to fit the data are basically all the same all the way up to residuals!***
+
+I have to say, this is where theoretical knowledge actually hit me in the face like a closed fist in a bar brawl.
+
+What I mean by this is that I knew this existed as a theoretical contruct when I was in my elementary statistics class a decade ago but it wasn't until I actually 'got my hands dirty' that I really started to see and understand the implications of this.
+
+We usually rely on on a set of 'metrics' to understand something.  If we did that using only elementary statistics and linear regression, we would think these datasets were all the same but plotting them reveals they're very much NOT
+
+It's funny, when my girlfirend asked me about this project, I told her it's a really complicated way to saying 'This is more than meets the eye'.
+
+
+# My contribution to the project
+
+Unfortunately, due to issues with my company initiating a reduction in force, I wasn't able to help my colleagagues in anyway during the assignment time frame.
+
+However, my contribution to the project was going to be to share some data from my job to give a example of a a real world application of this type of concept (though not 100% analogous).  
+
+Unfortunately, the bureaucracy of my company hasn't yet given me permission to share even masked data with the class. I can, however, describe it (though I have to apologize that this all has to be in words):
+
+My company is a 'lead generator' for many schools.  In judging performance schools will often look at how many students that we've referred have ended up enrolling (aka an enrollment rate).  As it takes time for students to make contact with a school, research their options and ultimately choose one, schools look at certain milestone conversion rates to understand what our 'mature' performance would be. i.e. how many enrolled in the last week, 2 weeks, 4 weeks, etc...
+
+Many schools were using the same benchmarks at each point based on quantiles and averages.  However, it was readily apprently when you plotted these 'mautration curves' that some were very different from one another.  The example I was going to show was the curve for propsective students looking for undergraduate vs. graduate studies at a particular schools.  It raised a number of questions but at the end of the day, I was able to show the school that the summary statitstic, though similar didn't tell the entire story of how performance should actually be measured.
+
+# R vs. Python
+
+I am definitely much more comfortable with R than Python.  However, I would be leaving a chunk of what I learned out if I didn't mention that all the work done by the students working on the Python collaboration was so helpful to me in this last week.
+
+# Final Thoughts (on the course not this project)
+
+After not having taken a single course or class in over a decade, I was somewhat delighted to see that, thought rusty, I can still do this.  I know the point of this course was to learn SQL, R and Python for use in later courses but what it really taught me was how to go back to school.  
+
+And more importantly, how NOT to go back to school.  What I mean by this is that, though it was terrible for colleagues of mine, the reduction in force my company initiated a couple of weeks ago that lead to my having to travel and take on urgently needed responsibities and ultimately leaving no time to the final week of the course taught me that I need to have the FULL commitment of my company behind me to udertake this type of endeavor.  I can't just do it alone.  Well, I spoke to my supervisor and he understands what this means now I I received it.
+
+Lastly, I'd like to thank you both, Andy and Mike.  Whether I go on in the program or not (I certainly would like to) what you taught me this summer has already paid dividends.  And you both seem like swell people I could have a drink with once in a while.
+
+
+
