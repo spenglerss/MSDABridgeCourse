@@ -1,0 +1,14 @@
+---
+title: "Week 9 Assignment"
+author: "Sandesh Sadalge"
+---
+
+The Week 9 Group Assignment was to work together using R and Python to come up with come comclusions about 4 sets of data:
+
+It was evidences early on that the set of data given to us:
+
+![](C:/Users/ssadalge/Documents/GitHub/MSDABridgeCourse/Week 9/W9AsgnPic.jpg)
+
+```{r}
+
+```
