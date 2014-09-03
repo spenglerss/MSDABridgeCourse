@@ -8,8 +8,4 @@ print(version)
 # Question 3
 require (DMwR)
 blah <- sales
-# According to R Studi0, there are 401,146 observations of 5 variables 
-
-
-
-print(version)
+# According to R Studi0, there are 401,146 observations of 5 variables \
